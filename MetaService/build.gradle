@@ -1,0 +1,53 @@
+
+plugins {
+  id 'com.android.library'
+  id 'org.jetbrains.kotlin.android'
+  id 'maven-publish'
+}
+
+
+
+android {
+  namespace 'com.alg.meta.plugin.metaservice'
+  compileSdk libs.versions.compilesdk.get().toInteger()
+
+  defaultConfig {
+    minSdk libs.versions.minSdk.get().toInteger()
+    targetSdk libs.versions.targetsdk.get().toInteger()
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles "consumer-rules.pro"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+
+dependencies {
+  testImplementation(libs.junit)
+  androidTestImplementation(libs.bundles.android.test)
+  //  ktx, appcompat, compose, lifecycle
+  implementation(libs.bundles.alg)
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId = 'com.alg.plugin'
+      artifactId = 'service'
+      version = '0.0.1'
+      //      from components.
+    }
+  }
+}
